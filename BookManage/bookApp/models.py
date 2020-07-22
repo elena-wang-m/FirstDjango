@@ -6,20 +6,29 @@ class Book(models.Model):
     title = models.CharField(max_length=20)
     pub_date = models.DateTimeField()
     # 定义默认输出格式
+    def __repr__(self):
+        return "BOOK: %s" % self.title
     def __str__(self):
-    return "%d" % self.title
+        return self.title
+
     # 自定义对应的表名，默认表名：bookApp_book
     class Meta:
         db_table = "books"
+        verbose_name = "labrary management"
+        verbose_name_plural = "labrary managements"
 
 class Hero(models.Model):
     name = models.CharField(max_length=20)
-    gender = models.BooleanField()
+    gender = models.BooleanField(default=True)
     content = models.CharField(max_length=100)
-    Book = models.ForeignKey('Book', on_delete=False)
+    Book = models.ForeignKey('Book', on_delete=models.CASCADE)
 
+    def __repr__(self):
+        return "<Hero %s>" % self.name
     def __str__(self):
-    return "%s" % self.name
+        return self.name
     # 自定义对应的表名，默认表名：bookApp_hero
     class Meta:
         db_table = "heros"
+        verbose_name = "hero management"
+        verbose_name_plural = "hero managements"
